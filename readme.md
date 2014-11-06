@@ -1,26 +1,28 @@
 # Codex
-**Codex** is a simple file-based Markdown documentation platform built on top of Laravel. It's completely customizable and dead simple to use to create beautiful documentation.
 
-[![Author](http://img.shields.io/badge/author-Shea_Lewis-blue.svg?style=flat-square)](https://caffeinated.ninja)
-[![Source](http://img.shields.io/badge/source-caffeinated/codex-blue.svg?style=flat-square)](https://github.com/caffeinated/codex)
-[![Build Status](http://img.shields.io/travis/caffeinated/codex/master.svg?style=flat-square)](https://travis-ci.org/caffeinated/codex)
-[![License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://tldrlegal.com/license/mit-license)
+Git based fork. This exists as a proof of concept only and should not be used.
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/2cdec527-cb61-4a38-8c44-775d30d55ea0/big.png)](https://insight.sensiolabs.com/projects/2cdec527-cb61-4a38-8c44-775d30d55ea0)
 
-## Completely Open Source
-I built Codex to be open and available to *everyone*. Documentation is incredibly important that can make or break even the best development projects. This is why the code powering Codex is available on [GitHub](https://github.com/caffeinated/codex) under the [MIT license](https://tldrlegal.com/license/mit-license).
+See https://github.com/caffeinated/codex
 
-In short, I want to see beautiful documentation being written everywhere! No excuses! Read the full documentation with installation instructions [here](http://codex.caffeinated.ninja).
 
-## Features
-- Laravel 4.2
-- Github-flavored Markdown
-- Host an unlimited number of *manuals* with accompanying *versions*
-- Code highlighting
-- Easy TOC / navigation system
-- SEO friendly URLs
-- Simple search
-- Supports Google Analytics
-- Supplied theme built on Bootstrap
-- Automatic header anchors
+Installation
+------------
+
+## Install Composer
+Codex utilizes [Composer](http://getcomposer.org) to manage its dependencies. First, download a copy of the `composer.phar` file. Once you have the PHAR archive, you can either keep it in your codex root directory or move it to `usr/local/bin` to use it globally on your system. On Windows, you can use the Composer [Windows Installer](https://getcomposer.org/Composer-Setup.exe).
+
+For more complete and thorough installation instructions for *nix, Mac, and Windows visit the Composer documentation on installation [here](https://getcomposer.org/doc/00-intro.md#system-requirements).
+
+## Download
+Once Composer is installed, download the [latest version](https://github.com/caffeinated/codex/archive/master.zip) of Codex and extract its contents into a directory on your server. Next, in the root of your Codex installation, run the `php composer.phar install` (or `composer install`) command to install all of Codex's dependencies. This process requires **Git** to be installed on the server to successfully complete the installation.
+
+## Permissions
+Codex may require one set of permissions to be configured: folders within `app/storage` require write access by the web server.
+
+
+## Install the documentation
+
+Go into the `public/docs` and run: `git clone https://github.com/veonik/sample-docs codex`.
+
+This will clone a sample repository with a few tagged versions and put it in the `public/docs/codex` folder.
