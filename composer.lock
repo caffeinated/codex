@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bdcca076dd85fe8aeee33ac37610dbd5",
+    "hash": "acaad822f8757026a4a72a3a38213d83",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -270,6 +270,52 @@
                 "tokenizer"
             ],
             "time": "2013-10-09 04:20:00"
+        },
+        {
+            "name": "kzykhys/git",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kzykhys/PHPGit.git",
+                "reference": "8b3ee3147d58e0aee62610f0aebcd30eb076ad5d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kzykhys/PHPGit/zipball/8b3ee3147d58e0aee62610f0aebcd30eb076ad5d",
+                "reference": "8b3ee3147d58e0aee62610f0aebcd30eb076ad5d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/options-resolver": ">=2.3",
+                "symfony/process": ">=2.3"
+            },
+            "require-dev": {
+                "symfony/filesystem": ">=2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kazuyuki Hayashi",
+                    "email": "hayashi@valnur.net"
+                }
+            ],
+            "description": "A Git wrapper for PHP5.3+",
+            "time": "2014-02-27 13:14:59"
         },
         {
             "name": "laravel/framework",
@@ -1439,6 +1485,58 @@
             "time": "2014-10-24 06:55:39"
         },
         {
+            "name": "symfony/options-resolver",
+            "version": "v2.5.6",
+            "target-dir": "Symfony/Component/OptionsResolver",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/OptionsResolver.git",
+                "reference": "1bdfe2ef91bfbb00222e643a9e9b907310eb0c39"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/OptionsResolver/zipball/1bdfe2ef91bfbb00222e643a9e9b907310eb0c39",
+                "reference": "1bdfe2ef91bfbb00222e643a9e9b907310eb0c39",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\OptionsResolver\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Symfony OptionsResolver Component",
+            "homepage": "http://symfony.com",
+            "keywords": [
+                "config",
+                "configuration",
+                "options"
+            ],
+            "time": "2014-10-01 05:50:18"
+        },
+        {
             "name": "symfony/process",
             "version": "v2.5.6",
             "target-dir": "Symfony/Component/Process",
@@ -1674,7 +1772,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "kzykhys/git": 20
+    },
     "prefer-stable": false,
     "platform": [],
     "platform-dev": []

@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Cache\Repository as Cache;
 use Illuminate\Config\Repository as Config;
 use Illuminate\Filesystem\Filesystem;
+use PHPGit\Git;
 
-class Codex implements CodexInterface
+class GitCodex implements CodexInterface
 {
 	/**
 	* The filesystem implementation.
@@ -14,18 +14,18 @@ class Codex implements CodexInterface
 	protected $files;
 
 	/**
-	* The cache implementation.
-	*
-	* @var Cache
-	*/
-	protected $cache;
-
-	/**
 	 * The config implementation.
 	 *
 	 * @var Config
 	 */
 	protected $config;
+
+	/**
+	 * The Git implementation.
+	 *
+	 * @var Git
+	 */
+	protected $git;
 
 	/**
 	 * Storage path.
@@ -35,16 +35,17 @@ class Codex implements CodexInterface
 	protected $storagePath;
 
 	/**
-	* Create a new codex instance.
-	*
-	* @param  Filesystem $files
-	* @return void
-	*/
-	public function __construct(Cache $cache, Config $config, Filesystem $files)
+	 * Create a new codex instance.
+	 *
+	 * @param Config $config
+	 * @param Filesystem $files
+	 * @param Git $git
+	 */
+	public function __construct(Config $config, Filesystem $files, Git $git)
 	{
-		$this->cache  = $cache;
 		$this->config = $config;
 		$this->files  = $files;
+		$this->git    = $git;
 
 		$this->storagePath = $this->config->get('codex.storage_path');
 	}
@@ -57,12 +58,12 @@ class Codex implements CodexInterface
 	*/
 	public function getToc($manual, $version)
 	{
-		$tocFile = $this->storagePath.'/'.$manual.'/'.$version.'/toc.md';
+		$tocFile = $this->storagePath.'/'.$manual.'/toc.md';
+		$this->git->setRepository($this->storagePath.'/'.$manual);
+		$this->git->checkout($version);
 
 		if ($this->files->exists($tocFile)) {
-			return $this->cache->remember("$manual.$version.toc", 5, function() use ($tocFile) {
-				return Markdown::parse($this->files->get($tocFile));
-			});
+			return Markdown::parse($this->files->get($tocFile), $manual.'/'.$version);
 		} else {
 			return null;
 		}
@@ -78,12 +79,12 @@ class Codex implements CodexInterface
 	*/
 	public function get($manual, $version, $page)
 	{
-		$page = $this->storagePath.'/'.$manual.'/'.$version.'/'.$page.'.md';
+		$page = $this->storagePath.'/'.$manual.'/'.$page.'.md';
+		$this->git->setRepository($this->storagePath.'/'.$manual);
+		$this->git->checkout($version);
 
 		if ($this->files->exists($page)) {
-			return $this->cache->remember("$manual.$version.$page", 5, function() use ($page) {
-				return Markdown::parse($this->files->get($page));
-			});
+			return Markdown::parse($this->files->get($page), $manual.'/'.$version);
 		} else {
 			App::abort(404);
 		}
@@ -99,7 +100,9 @@ class Codex implements CodexInterface
 	 */
 	public function getUpdatedTimestamp($manual, $version, $page)
 	{
-		$page = $this->storagePath.'/'.$manual.'/'.$version.'/'.$page.'.md';
+		$page = $this->storagePath.'/'.$manual.'/'.$page.'.md';
+		$this->git->setRepository($this->storagePath.'/'.$manual);
+		$this->git->checkout($version);
 
 		if ($this->files->exists($page)) {
 			$timestamp = DateTime::createFromFormat('U', filemtime($page));
@@ -129,8 +132,9 @@ class Codex implements CodexInterface
 	public function getVersions($manual)
 	{
 		$manualDir = $this->storagePath.'/'.$manual;
+		$this->git->setRepository($manualDir);
 
-		return $this->getDirectories($manualDir);
+		return $this->git->tag();
 	}
 
 	/**
@@ -179,7 +183,9 @@ class Codex implements CodexInterface
 	public function search($manual, $version, $needle = '')
 	{
 		$results   = [];
-		$directory = $this->storagePath.'/'.$manual.'/'.$version;
+		$directory = $this->storagePath.'/'.$manual;
+		$this->git->setRepository($directory);
+		$this->git->checkout($version);
 		$files     = preg_grep('/toc\.md$/', $this->files->allFiles($directory),
 		 	PREG_GREP_INVERT);
 

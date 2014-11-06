@@ -20,6 +20,8 @@ ClassLoader::addDirectories(array(
 
 ));
 
+App::bind('CodexInterface', 'GitCodex');
+
 /*
 |--------------------------------------------------------------------------
 | Application Error Logger

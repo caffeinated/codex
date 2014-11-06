@@ -36,7 +36,7 @@ class CodexController extends BaseController
 	 * @param  Codex $codex
 	 * @return void
 	 */
-	public function __construct(Codex $codex)
+	public function __construct(CodexInterface $codex)
 	{
 		$this->codex = $codex;
 
